@@ -1,8 +1,10 @@
 import { appConfig } from "@/lib/app_config";
 import { ButtonCopy } from "@/lib/ButtonCopy";
 import { ButtonLogout } from "@/lib/ButtonLogout";
-import { Card, Divider, Flex, Group, Stack, Text, Title } from "@mantine/core";
+import { pages } from "@/lib/routes";
+import { Button, Card, Divider, Flex, Group, Stack, Text, Title } from "@mantine/core";
 import { cookies } from "next/headers";
+import Link from "next/link";
 
 export default function Page() {
   const cookieStore = cookies();
@@ -11,7 +13,10 @@ export default function Page() {
     <Stack p={"md"}>
       <Flex justify="space-between">
         <Title order={3}>user page</Title>
-        <ButtonLogout />
+        <Flex gap={"md"}>
+          <Button variant="subtle" size="compact-xs" radius={"xl"} component={Link} href={pages["/dashboard"]} >dashboard</Button>
+          <ButtonLogout />
+        </Flex>
       </Flex>
       <Divider />
       <Card>
