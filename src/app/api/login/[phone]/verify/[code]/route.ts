@@ -1,9 +1,8 @@
 import { appConfig } from "@/lib/app_config";
-
 import prisma from "@/lib/prisma";
-import { EnvServer } from "@/lib/server/EnvServer";
 import { sessionCreate } from "wibu";
 
+const encodeKey = process.env.WIBU_SERVER2_ENCODED_KEY!;
 
 export async function POST(
   request: Request,
@@ -50,7 +49,7 @@ export async function POST(
     user: userCreate,
     exp: "7 year",
     sessionKey: appConfig.sessionKey,
-    encodedKey: EnvServer.env.WIBU_SERVER2_ENCODED_KEY
+    encodedKey: encodeKey
   });
 
   return new Response(JSON.stringify({ session }));
