@@ -1,5 +1,5 @@
 import { pages } from "@/lib/routes";
-import { ActionIcon, Avatar, Button, Flex, Stack, Title } from "@mantine/core";
+import { ActionIcon, Avatar, Flex, Stack, Title } from "@mantine/core";
 import Link from "next/link";
 import { FaHome } from "react-icons/fa";
 export default function Layout({ children }: { children: React.ReactNode }) {
