@@ -16,43 +16,44 @@ import {
 } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
 import _ from "lodash";
+import moment from "moment";
 import Link from "next/link";
 import { useState } from "react";
 
-// const funItem = (project: VercelProject) => {
-//   return {
-//     // name: project.name,
+const funItem = (project: VercelProject) => {
+  return {
+    // name: project.name,
 
-//     latestDeployments: project.latestDeployments.map((d) => ({
-//       // id: d.id,
-//       // aliasAssigned: d.aliasAssigned,
-//       createdAt: moment(d.createdAt).format("DD MMM YYYY"),
-//       githubCommitMessage: d.meta.githubCommitMessage
-//     })),
-//     target: [
-//       {
-//         target: "Production",
-//         creator: project.targets.production?.meta.githubCommitAuthorName,
-//         message: project.targets.production?.meta.githubCommitMessage,
-//         ref: project.targets.production?.meta.githubCommitRef,
-//         createdAt: moment(project.targets?.production?.createdAt).format(
-//           "DD MMM YYYY"
-//         ),
-//         host: project.targets.production.alias[1]
-//       },
-//       {
-//         target: "Preview",
-//         creator: project.targets.preview?.meta.githubCommitAuthorName,
-//         message: project.targets.preview?.meta.githubCommitMessage,
-//         ref: project.targets.preview?.meta.githubCommitRef,
-//         createdAt: moment(project.targets?.preview?.createdAt).format(
-//           "DD MMM YYYY"
-//         ),
-//         host: project.targets.production.alias[1]
-//       }
-//     ]
-//   };
-// };
+    latestDeployments: project.latestDeployments.map((d) => ({
+      // id: d.id,
+      // aliasAssigned: d.aliasAssigned,
+      createdAt: moment(d.createdAt).format("DD MMM YYYY"),
+      githubCommitMessage: d.meta.githubCommitMessage
+    })),
+    target: [
+      {
+        target: "Production",
+        creator: project.targets.production?.meta.githubCommitAuthorName,
+        message: project.targets.production?.meta.githubCommitMessage,
+        ref: project.targets.production?.meta.githubCommitRef,
+        createdAt: moment(project.targets?.production?.createdAt).format(
+          "DD MMM YYYY"
+        ),
+        host: project.targets.production.alias[1]
+      },
+      {
+        target: "Preview",
+        creator: project.targets.preview?.meta.githubCommitAuthorName,
+        message: project.targets.preview?.meta.githubCommitMessage,
+        ref: project.targets.preview?.meta.githubCommitRef,
+        createdAt: moment(project.targets?.preview?.createdAt).format(
+          "DD MMM YYYY"
+        ),
+        host: project.targets.production.alias[1]
+      }
+    ]
+  };
+};
 
 export function VercelProjects({ params }: { params: { repo: string } }) {
   const [project, setProject] = useState<VercelProject | null>(null);
@@ -115,10 +116,7 @@ export function VercelProjects({ params }: { params: { repo: string } }) {
             <Text>{project.updatedAt}</Text>
           </Flex>
           <ScrollArea w={"100%"}>
-            {/* <TableView data={funItem(project)} /> */}
-            <pre>
-              {JSON.stringify(project, null, 2)}
-            </pre>
+            <TableView data={funItem(project)} />
           </ScrollArea>
         </Stack>
       )}
