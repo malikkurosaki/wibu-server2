@@ -21,7 +21,7 @@ import {
   TextInput,
   Title
 } from "@mantine/core";
-import { useLocalStorage, useShallowEffect } from "@mantine/hooks";
+import { useShallowEffect } from "@mantine/hooks";
 import Link from "next/link";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
@@ -36,10 +36,7 @@ export default function Page({ params }: { params: { repo: string } }) {
   const { value: logLoading } = useHookstate(branchSyncLoading);
   const { value: logData, set: setLogData } = useHookstate(branchSyncLog);
   const [listSearch, setListSearch] = useState<OctoBranch[] | null>(null);
-  const [textSearch, setTextSearch] = useLocalStorage({
-    key: "branch_search",
-    defaultValue: ""
-  });
+  const [textSearch, setTextSearch] = useState("");
 
   useShallowEffect(() => {
     const search = dataRepo?.filter((branch) => {

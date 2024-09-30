@@ -14,10 +14,11 @@ import {
   Text,
   Title
 } from "@mantine/core";
-import { useLocalStorage, useShallowEffect } from "@mantine/hooks";
+import { useShallowEffect } from "@mantine/hooks";
 import _ from "lodash";
 import moment from "moment";
 import Link from "next/link";
+import { useState } from "react";
 
 const funItem = (project: VercelProject) => {
   return {
@@ -51,16 +52,11 @@ const funItem = (project: VercelProject) => {
         host: project.targets.production.alias[1]
       }
     ]
-    // createdAt: moment(project.createdAt).format("DD MMM YYYY"),
-    // updatedAt: moment(project.updatedAt).format("DD MMM YYYY"),
   };
 };
 
 export function VercelProjects({ params }: { params: { repo: string } }) {
-  const [project, setProject] = useLocalStorage<VercelProject | null>({
-    key: "vercel_project",
-    defaultValue: null
-  });
+  const [project, setProject] = useState<VercelProject | null>(null);
   useShallowEffect(() => {
     !project && loadProject();
   }, []);
@@ -81,7 +77,6 @@ export function VercelProjects({ params }: { params: { repo: string } }) {
     }
   }
 
-  if (!project) return <LocalLoader />;
   return (
     <Stack p={"md"}>
       <CloseButton
@@ -90,18 +85,20 @@ export function VercelProjects({ params }: { params: { repo: string } }) {
       />
       <Flex gap={"md"} align={"center"}>
         <Title order={3}>{params.repo}</Title>
-        <Button
-          variant="subtle"
-          size="compact-xs"
-          radius={"xl"}
-          component={Link}
-          href={pages["/dashboard/[repo]/project/[projectId]/deployments"]({
-            repo: params.repo,
-            projectId: project?.id
-          })}
-        >
-          developments
-        </Button>
+        {project && (
+          <Button
+            variant="subtle"
+            size="compact-xs"
+            radius={"xl"}
+            component={Link}
+            href={pages["/dashboard/[repo]/project/[projectId]/deployments"]({
+              repo: params.repo,
+              projectId: project!.id
+            })}
+          >
+            developments
+          </Button>
+        )}
       </Flex>
       {!project && <LocalLoader />}
       {project && (
@@ -128,6 +125,7 @@ export function VercelProjects({ params }: { params: { repo: string } }) {
 }
 
 function TableView({ data }: { data: unknown }) {
+  if (!data) return <LocalLoader />;
   return (
     <Table withColumnBorders withRowBorders withTableBorder>
       <Table.Thead bg={"dark"}>
@@ -139,7 +137,7 @@ function TableView({ data }: { data: unknown }) {
       </Table.Thead>
       <Table.Tbody>
         <Table.Tr>
-          {_.values(data).map((value, key) => (
+          {_.values(data).map((value: AnyType, key) => (
             <Table.Td
               key={key}
               style={{
@@ -155,7 +153,7 @@ function TableView({ data }: { data: unknown }) {
                   ))}
                 </Stack>
               ) : (
-                <Text miw={200}>{value}</Text>
+                <Text miw={200}>{JSON.stringify(value)}</Text>
               )}
             </Table.Td>
           ))}

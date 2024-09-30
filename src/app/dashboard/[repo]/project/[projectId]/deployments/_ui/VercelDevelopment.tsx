@@ -14,9 +14,10 @@ import {
   Stack,
   Text
 } from "@mantine/core";
-import { useLocalStorage, useShallowEffect } from "@mantine/hooks";
+import { useShallowEffect } from "@mantine/hooks";
 import moment from "moment";
 import Link from "next/link";
+import { useState } from "react";
 
 export function VercelDevelopments({
   params
@@ -24,10 +25,7 @@ export function VercelDevelopments({
   params: { repo: string; projectId: string };
 }) {
   const [developments, setDevelopments] =
-    useLocalStorage<VercelDevelopmentType | null>({
-      key: "vercel_developments",
-      defaultValue: null
-    });
+    useState<VercelDevelopmentType | null>(null);
 
   async function loadData() {
     const res = await fetch(

@@ -2,7 +2,7 @@ import { pages } from "@/lib/routes";
 import { Card, Group, Stack, Text } from "@mantine/core";
 import Link from "next/link";
 
-const listRepo = ["hipmi", "sistem-desa-mandiri"];
+const listRepo = ["hipmi", "sistem-desa-mandiri", "wibu-server2"];
 export default function Page() {
   return (
     <Stack p={"md"}>
