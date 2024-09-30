@@ -116,6 +116,9 @@ export function VercelProjects({ params }: { params: { repo: string } }) {
           </Flex>
           <ScrollArea w={"100%"}>
             {/* <TableView data={funItem(project)} /> */}
+            <pre>
+              {JSON.stringify(project, null, 2)}
+            </pre>
           </ScrollArea>
         </Stack>
       )}
