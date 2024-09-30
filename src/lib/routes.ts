@@ -11,7 +11,7 @@ export const pages = {
     `/dashboard/${repo}/project`,
   "/dashboard/[repo]/project/[projectId]/deployments": ({
     repo,
-    projectId,
+    projectId
   }: {
     repo: string;
     projectId: string;
@@ -19,30 +19,33 @@ export const pages = {
   "/dashboard/[repo]/project/[projectId]/deployments/[deployId]": ({
     repo,
     projectId,
-    deployId,
+    deployId
   }: {
     repo: string;
     projectId: string;
     deployId: string;
   }) => `/dashboard/${repo}/project/${projectId}/deployments/${deployId}`,
-  "/admin": "/admin",
+  "/admin": "/admin"
 };
 
 export const apies = {
+  "/api/vercel/webhook": "/api/vercel/webhook",
+  "/api/vercel/v1/webhooks": "/api/vercel/v1/webhooks",
   "/api/vercel/project/[name]": ({ name }: { name: string }) =>
     `/api/vercel/project/${name}`,
-  "/api/vercel/hook": "/api/vercel/hook",
   "/api/vercel/deploy/by/[projectId]": ({ projectId }: { projectId: string }) =>
     `/api/vercel/deploy/by/${projectId}`,
   "/api/vercel/deploy/[deployId]": ({ deployId }: { deployId: string }) =>
     `/api/vercel/deploy/${deployId}`,
+  "/api/vercel/deploy/[deployId]/event": ({ deployId }: { deployId: string }) =>
+    `/api/vercel/deploy/${deployId}/event`,
   "/api/logout": "/api/logout",
   "/api/login/[phone]": ({ phone }: { phone: string }) => `/api/login/${phone}`,
   "/api/login/[phone]/verify/[code]": ({
     phone,
-    code,
+    code
   }: {
     phone: string;
     code: string;
-  }) => `/api/login/${phone}/verify/${code}`,
+  }) => `/api/login/${phone}/verify/${code}`
 };

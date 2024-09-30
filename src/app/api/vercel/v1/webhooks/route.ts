@@ -3,13 +3,9 @@ import { AnyType } from "@/types/ComplexRecord ";
 
 const env = process.env as AnyType;
 EnvServer.init(env);
-export async function GET(
-  req: Request,
-  { params }: { params: { deployId: string } }
-) {
-  const id = params.deployId;
-  if (!id) return new Response("Required id", { status: 400 });
-  const res = await fetch("https://api.vercel.com/v13/deployments/" + id, {
+export async function GET() {
+//   console.log(EnvServer.env.WIBU_SERVER2_VERCEL_KEY,"wibu");
+  const res = await fetch(`https://api.vercel.com/v1/webhooks`, {
     headers: {
       Authorization: `Bearer ${EnvServer.env.WIBU_SERVER2_VERCEL_KEY}`
     },

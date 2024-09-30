@@ -15,7 +15,7 @@ export default function Page({
   const [deployments, setDeployments] = useState<VercelDeploy[] | null>(null);
   async function loadDeployment() {
     const res = await fetch(
-      apies["/api/vercel/deploy/[deployId]"]({
+      apies["/api/vercel/deploy/[deployId]/event"]({
         deployId: params.deployId
       })
     );
@@ -41,7 +41,6 @@ export default function Page({
           projectId: params.projectId
         })}
       />
-
       <MarkdownPreview source={"\`\`\`log\n" + dataText + "\n\`\`\`"} />
     </Stack>
   );

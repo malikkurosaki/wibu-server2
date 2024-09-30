@@ -9,7 +9,6 @@ import {
   CloseButton,
   Flex,
   Group,
-  ScrollArea,
   Skeleton,
   Stack,
   Text
@@ -40,8 +39,18 @@ export function VercelDevelopments({
     }
   }
 
+  // async function loadHook() {
+  //   const res = await fetch(apies["/api/vercel/v1/webhooks"]);
+  //   const data = await res.text();
+  //   if (res.ok) {
+  //     const dataJson = JSON.parse(data);
+  //     console.log(dataJson);
+  //   }
+  // }
+
   useShallowEffect(() => {
     loadData();
+    // loadHook();
   }, []);
 
   if (!developments) return <LocalLoader />;
@@ -55,25 +64,24 @@ export function VercelDevelopments({
         {developments.deployments.map((d, i) => (
           <Card key={i} w={300}>
             <Stack>
-              <ScrollArea>
-                <Stack align="start" gap={0}>
-                  <DevelopmentItem name="Name" data={d.name} />
-                  <DevelopmentItem name="Alias" data={d.aliasAssigned} />
-                  <DevelopmentItem
-                    name="Build At"
-                    data={moment(d.buildingAt).format("DD MMM YYYY")}
-                  />
-                  <DevelopmentItem
-                    name="Created At"
-                    data={moment(d.created).format("DD MMM YYYY")}
-                  />
-                  <DevelopmentItem
-                    name="Ready"
-                    data={moment(d.ready).format("DD MMM YYYY")}
-                  />
-                  <DevelopmentItem name="Target" data={d.target} />
-                </Stack>
-              </ScrollArea>
+              <Stack align="start" gap={0}>
+                <DevelopmentItem name="Name" data={d.name} />
+                <DevelopmentItem name="Id" data={d.uid} />
+                <DevelopmentItem name="Alias" data={d.aliasAssigned} />
+                <DevelopmentItem
+                  name="Build At"
+                  data={moment(d.buildingAt).format("DD MMM YYYY HH:mm")}
+                />
+                <DevelopmentItem
+                  name="Created At"
+                  data={moment(d.created).format("DD MMM YYYY HH:mm")}
+                />
+                <DevelopmentItem
+                  name="Ready"
+                  data={moment(d.ready).format("DD MMM YYYY HH:mm")}
+                />
+                <DevelopmentItem name="Target" data={d.target} />
+              </Stack>
               <Flex justify={"end"}>
                 <Button
                   variant="subtle"
@@ -103,7 +111,14 @@ function DevelopmentItem({ name, data }: { name: string; data: AnyType }) {
   return (
     <Flex>
       <Text w={100}>{name}</Text>
-      <Text>{JSON.stringify(data)}</Text>
+      <Text
+        flex={1}
+        style={{
+          lineBreak: "anywhere"
+        }}
+      >
+        {JSON.stringify(data)}
+      </Text>
     </Flex>
   );
 }
