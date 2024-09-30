@@ -10,7 +10,7 @@ export async function GET(
   const id = params.deployId;
   if (!id) return new Response("Required id", { status: 400 });
   const res = await fetch(
-    "https://api.vercel.com/v3/deployments/" + id + "/events",
+    "https://api.vercel.com/v3/deployments/" + id + "/events?limit=-1",
     {
       headers: {
         Authorization: `Bearer ${EnvServer.env.WIBU_SERVER2_VERCEL_KEY}`
