@@ -1,0 +1,14 @@
+{
+    "created": 1724812565536,
+    "date": 1724812565536,
+    "deploymentId": "dpl_C2yPf3ZfVmVGpmUg4LEi3nq8Coj1",
+    "id": "1724812565536747699411900000",
+    "text": "Running build in Washington, D.C., USA (East) – iad1",
+    "type": "stdout",
+    "serial": "1724812565536747699411900000",
+    "info": {
+      "type": "build",
+      "name": "bld_mi4ppcazt",
+      "entrypoint": "."
+    }
+  }

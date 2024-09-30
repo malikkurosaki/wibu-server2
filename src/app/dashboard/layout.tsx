@@ -4,8 +4,10 @@ import Link from "next/link";
 import { FaHome } from "react-icons/fa";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <Stack>
-      <Flex align={"center"} p={"md"}>
+    <Stack gap={0}>
+      <Flex align={"center"} p={"md"} bg={"dark"} pos={"sticky"} top={0} style={{
+        zIndex: 999
+      }}>
         <Flex align={"center"} justify={"space-between"} w={"100%"}>
           <Flex>
             <ActionIcon

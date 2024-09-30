@@ -1,6 +1,6 @@
 // Import styles of packages that you've installed.
 // All packages except `@mantine/hooks` require styles imports
-import { EnvProvider } from "@/lib/EnvProvider";
+import { EnvClientProvider } from "@/lib/client/EnvClient";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { Notifications } from "@mantine/notifications";
@@ -26,7 +26,7 @@ export default function RootLayout({
         <ColorSchemeScript defaultColorScheme="dark" />
       </head>
       <body>
-        <EnvProvider env={env} />
+        <EnvClientProvider env={env} />
         <MantineProvider defaultColorScheme="dark">
           <Notifications position="top-center" />
           {children}
