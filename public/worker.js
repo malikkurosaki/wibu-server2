@@ -5,8 +5,8 @@ env.allowLocalModels = false;
 
 // Use the Singleton pattern to enable lazy construction of the pipeline.
 class PipelineSingleton {
-    static task = 'text-classification';
-    static model = 'Xenova/distilbert-base-uncased-finetuned-sst-2-english';
+    static task = 'text-generation';
+    static model = 't5-small';
     static instance = null;
 
     static async getInstance(progress_callback = null) {

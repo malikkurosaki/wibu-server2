@@ -1,4 +1,5 @@
 "use client";
+import { Button, Textarea } from "@mantine/core";
 import { useState, useEffect, useRef, useCallback } from "react";
 
 interface WorkerMessage {
@@ -8,6 +9,7 @@ interface WorkerMessage {
 export default function Home() {
   // TODO: Add state variables
   const [result, setResult] = useState<string | null>(null);
+  const [dataText, setDataText] = useState<string | null>(null);
 
   // Create a reference to the worker object.
   const worker = useRef<Worker | null>(null);
@@ -62,14 +64,12 @@ export default function Home() {
       <h1 className="text-5xl font-bold mb-2 text-center">Transformers.js</h1>
       <h2 className="text-2xl mb-4 text-center">Next.js template</h2>
 
-      <input
+      <Textarea
         className="w-full max-w-xs p-2 border border-gray-300 rounded mb-4"
-        type="text"
         placeholder="Enter text here"
-        onInput={(e) => {
-          classify(e.currentTarget.value);
-        }}
+        onInput={(e) => setDataText(e.currentTarget.value)}
       />
+      <Button onClick={() => classify(dataText || "")}>send</Button>
 
       {ready !== null && (
         <pre className="bg-gray-100 p-2 rounded">
