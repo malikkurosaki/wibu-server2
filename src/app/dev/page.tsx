@@ -36,7 +36,7 @@ export default function Home() {
           setReady(true);
           break;
         case "complete":
-          setResult(e.data.output[0]);
+          setResult(JSON.stringify(e.data));
           break;
       }
     };
