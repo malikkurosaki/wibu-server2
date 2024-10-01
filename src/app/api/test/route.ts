@@ -1,23 +1,18 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { NextResponse } from "next/server";
-import PipelineSingleton from "@/lib/pipeline";
+import { spawn } from "child_process";
+import path from "path";
 
 export async function GET(request: Request) {
   const text = new URL(request.url).searchParams.get("text");
-  if (!text) {
-    return NextResponse.json(
-      {
-        error: "Missing text parameter"
-      },
-      { status: 400 }
-    );
+  if (text) {
+    const child = spawn("/bin/bash", [
+      "-c",
+      `npx tsx ${path.resolve(process.cwd(), "x.ts")}`
+    ]);
+    child.stdout.on("data", (data) => {
+      console.log(`stdout: ${data}`);
+    });
+
+    return new Response(JSON.stringify({ success: true, text }));
   }
-  // Get the classification pipeline. When called for the first time,
-  // this will load the pipeline and cache it for future use.
-  const classifier = await PipelineSingleton.getInstance();
-
-  // Actually perform the classification
-  const result = await classifier(text);
-
-  return NextResponse.json(result);
+  return new Response(JSON.stringify({ text }));
 }
