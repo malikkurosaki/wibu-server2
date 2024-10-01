@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect, useRef, useCallback } from "react";
 
 interface WorkerMessage {
@@ -17,13 +16,14 @@ export default function Home() {
   // We use the `useEffect` hook to set up the worker as soon as the `Home` component is mounted.
   useEffect(() => {
     if (!worker.current) {
-      // Create the worker if it does not yet exist.
+
       worker.current = new Worker(
-        new URL("/wibu_worker.js"),
+        new URL("/public/worker.js", import.meta.url),
         {
           type: "module"
         }
       );
+      
     }
 
     // Create a callback function for messages from the worker thread.
