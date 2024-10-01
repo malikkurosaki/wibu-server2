@@ -2,8 +2,9 @@
 const nextConfig = {
     webpack: (config, { isServer }) => {
         if (isServer) {
-            // Menghindari Webpack dari proses ini di client-side
+            // Menghindari bundling untuk library ini di sisi client
             config.externals.push('@xenova/transformers');
+            config.externals.push('onnxruntime-node'); // Tambahkan ini jika hanya di server
         }
 
         return config;
