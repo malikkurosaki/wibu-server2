@@ -1,5 +1,4 @@
 import { spawn } from "child_process";
-import path from "path";
 
 export async function GET(request: Request) {
   const text = new URL(request.url).searchParams.get("text");
@@ -7,7 +6,7 @@ export async function GET(request: Request) {
     
     const child = spawn("/bin/bash", [
       "-c",
-      `npx tsx ${path.resolve(process.cwd(), "x.ts")}`
+      `npx tsx --version`
     ]);
     child.stdout.on("data", (data) => {
       console.log(`stdout: ${data}`);
