@@ -16,14 +16,12 @@ export default function Home() {
   // We use the `useEffect` hook to set up the worker as soon as the `Home` component is mounted.
   useEffect(() => {
     if (!worker.current) {
-
       worker.current = new Worker(
         new URL("/public/worker.js", import.meta.url),
         {
           type: "module"
         }
       );
-      
     }
 
     // Create a callback function for messages from the worker thread.
@@ -60,10 +58,24 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
-      <h1>Text Classification</h1>
-      <button onClick={() => classify("Sample text")}>Classify Text</button>
-      {result && <p>Result: {result}</p>}
-    </div>
+    <main className="flex min-h-screen flex-col items-center justify-center p-12">
+      <h1 className="text-5xl font-bold mb-2 text-center">Transformers.js</h1>
+      <h2 className="text-2xl mb-4 text-center">Next.js template</h2>
+
+      <input
+        className="w-full max-w-xs p-2 border border-gray-300 rounded mb-4"
+        type="text"
+        placeholder="Enter text here"
+        onInput={(e) => {
+          classify(e.currentTarget.value);
+        }}
+      />
+
+      {ready !== null && (
+        <pre className="bg-gray-100 p-2 rounded">
+          {!ready || !result ? "Loading..." : JSON.stringify(result, null, 2)}
+        </pre>
+      )}
+    </main>
   );
 }
